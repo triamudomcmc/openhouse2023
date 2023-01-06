@@ -5,68 +5,115 @@
 @import "~quill/dist/quill.snow.css";
 @import "~quill/dist/quill.bubble.css";
 
-
 @layer base {
-    @font-face {
-        font-family: 'Bai Jamjuree';
-        src: url('/public/fonts/BaiJamjuree-Medium.ttf') ;
-    }
-    @font-face {
-        font-family: 'NotoSansThai';
-        src: url('/public/fonts/NotoSansThai-VariableFont_wdth\,wght.ttf');
-    }
 
-    div {
-        @apply font-display;
-        font-weight: 400;
-        font-size: 10px;
-        padding: 0;
-    }
-    
-    h1{
-        @apply text-md ;
-        font-weight: 800;
-    }
+  div {
+    @apply font-display;
+    font-weight: 400;
+    /*font-size: 10px;*/
+    /*ใครใช้จะสาปนะคะนะคะนะคะนะคะนะคะ*/
+    padding: 0;
+  }
 
-    @screen lg{
-        h1 {
-            @apply text-2xl;
-            font-weight: 800;
-        }
-        h2{
-            @apply text-xl;
-        }
-        div{
-            font-size: 16px;
-        }
-    }
+  h1 {
+    @apply text-md;
+    font-weight: 800;
+  }
 
-    body {
-        display: flex;
-        min-height: 100vh;
-    }
-      
-    #__next {
-        flex: 1 1 auto;
-    }
+  /* @screen lg { */
+  /*อย่า set ใส่ element ได้ม้าย ไปตั้ง break point แยกในแต่ละอันเอา*/
+  /* h1 {
+      @apply text-2xl;
+      font-weight: 800;
+    } */
+  /* h2 {
+      @apply text-xl;
+    } */
+  /* div {
+      font-size: 16px;
+    } */
+  /* } */
 
-    .bg-gradient-edit{
-        background: linear-gradient(180deg, #FFF6E8 -1.61%, #FFDA98 46.55%, #FFBD97 69.3%, #B8BDDD 90.47%);
-    }
+  body {
+    display: flex;
+    min-height: 100vh;
+  }
 
-    .bg-gradient-landing{
-        background: linear-gradient(0deg, #EC9E6D 3.37%, #576AAE 95.73%) ;
-    }
+  #__next {
+    flex: 1 1 auto;
+  }
 
-    .bg-login-edit{
-        background: linear-gradient(180deg, rgba(255, 246, 232, 0.58) 24.33%, #F2C69C 100%);
-    }
+  .bg-gradient-edit {
+    background: linear-gradient(180deg, #fff6e8 -1.61%, #ffda98 46.55%, #ffbd97 69.3%, #b8bddd 90.47%);
+  }
 
-    .bg-article{
-        background-image: url('https://www.google.com/search?q=post+card+shop&tbm=isch&ved=2ahUKEwjAiKXW6uz7AhU0SHwKHT7nBTUQ2-cCegQIABAA&oq=post+card+shop&gs_lcp=CgNpbWcQAzIHCAAQgAQQGDIJCAAQgAQQChAYOgQIIxAnOgQIABBDOgcIABCxAxBDOgUIABCABDoHCAAQgAQQCjoICAAQCBAeEAo6BggAEAgQHlCuGViUM2CYNmgAcAB4AIABXogBnQmSAQIxNJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=ylGTY8D7IrSQ8QO-zpeoAw&bih=755&biw=1470&rlz=1C5CHFA_enTH1030TH1033#imgrc=ZVBj0-W6w8Eh-M');
-    }
+  .bg-gradient-landing {
+    background: linear-gradient(0deg, #ec9e6d 3.37%, #576aae 95.73%);
+  }
 
-    .bg-qr-reader{
-        background: linear-gradient(180deg, #8087CD 0%, #E29E78 100%);
-    }
+  .bg-login-edit {
+    background: linear-gradient(180deg, rgba(255, 246, 232, 0.58) 24.33%, #f2c69c 100%);
+  }
+
+  .bg-article {
+    background-image: url("https://www.google.com/search?q=post+card+shop&tbm=isch&ved=2ahUKEwjAiKXW6uz7AhU0SHwKHT7nBTUQ2-cCegQIABAA&oq=post+card+shop&gs_lcp=CgNpbWcQAzIHCAAQgAQQGDIJCAAQgAQQChAYOgQIIxAnOgQIABBDOgcIABCxAxBDOgUIABCABDoHCAAQgAQQCjoICAAQCBAeEAo6BggAEAgQHlCuGViUM2CYNmgAcAB4AIABXogBnQmSAQIxNJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=ylGTY8D7IrSQ8QO-zpeoAw&bih=755&biw=1470&rlz=1C5CHFA_enTH1030TH1033#imgrc=ZVBj0-W6w8Eh-M");
+  }
+
+  .bg-landing-programme {
+    background: linear-gradient(180deg, #ffe9d8 0%, #ffd3b1 23.34%, #ed9f6e 75.52%);
+  }
+
+  .bg-qr-reader {
+    background: linear-gradient(180deg, #8087cd 0%, #e29e78 100%);
+  }
+
+  .bg-normal-gradient {
+    background: linear-gradient(143.61deg, rgba(255, 142, 74, 0.86) 3.94%, #9196c5 84.45%);
+  }
+
+  .bg-clubs {
+    background: linear-gradient(180deg, #2a3271 134.81%, #1b0852 195.13%);
+  }
+
+  .bg-moreInfo{
+    background: linear-gradient(180deg, #354993 0%, #1D0C55 100%);
+  }
+
+  .register-button {
+    background: linear-gradient(97.31deg, #dce3ff -7.96%, #a6a8d7 33.16%, #3e378b 111.68%);
+  }
+
+  .footer-button {
+    background: linear-gradient(97.13deg, #f7ebda -7.68%, #ed9f6e 39.07%, rgba(129, 140, 248, 0.81) 107.39%);
+  }
+
+  .organization-text {
+    background: linear-gradient(180deg, #8168d2 9.95%, #290f82 75.44%, #170847 125.3%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .moreInfo-button{
+    background: linear-gradient(180deg, #FEF2DC -47.06%, #3C52A2 113.6%);
+  }
+
+  .gifted{
+    background: linear-gradient(180deg, #FED354 0%, #E96F26 100%);
+  }
+
+  #privacy-policy ol,
+  #tos ol {
+    counter-reset: item;
+  }
+  #privacy-policy ol > li,
+  #tos ol > li {
+    display: block;
+  }
+  #privacy-policy ol > li:before,
+  #tos ol > li:before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    color: white;
+    display: inline-block;
+  }
 }

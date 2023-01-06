@@ -1,121 +1,147 @@
-import { useState, useEffect } from 'react'
-import { GetServerSideProps } from 'next'
-import Link from 'next/link'
-import { useAuth } from '@lib/auth'
-import { MainRenderer } from '@components/cms/mainRender'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { useAuth } from "@lib/auth"
+import { MainRenderer } from "@components/cms/mainRender"
+import { motion } from "framer-motion"
+import { useRouter } from "next/router"
+import { ArticleBackground } from "@vectors/background/articlebg"
+import { ArrowCircleLeftIcon } from "@heroicons/react/outline"
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    return {
-        props: {
-            clubId: params?.clubId,
-        },
-    }
+import fs from 'fs'
+import { GetServerSideProps, GetStaticProps, GetStaticPaths } from "next"
+
+export const getStaticPaths: GetStaticPaths = async ({ }) => {
+  const raw = JSON.parse(fs.readFileSync(`./src/_data/_maps/allMap.json`, {encoding: 'utf-8'}))
+  let tmp = []
+  for (let key of Object.keys(raw)) {
+    tmp.push({params: {clubId: key}})
+  }
+
+  return {
+      paths: tmp,
+      fallback: false
+  }
 }
 
-const LandingEdit = ({clubId}) => {
-    const {user} = useAuth()
-    const [info, setInfo] = useState<{[key: string]: string}>({})
-    const [status, setStatus] = useState('')
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const clubId = params?.clubId as string
+  const raw = JSON.parse(fs.readFileSync(`./src/_data/_maps/allMap.json`, {encoding: 'utf-8'}))
+  let finalData = {}
 
-    useEffect(() => {
-        const fetchInitialData = async () => {
-            const permBody = JSON.stringify({executerUid: user?.uid})
-            let dataFetch
-            if (user?.club == clubId || user?.roles?.hasOwnProperty('tucmc')) {
-                const res = await fetch(`/api/${clubId}/handlers`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    executerUid: user?.uid,
-                    act: 'pendingcontent'
-                })
-                })
-                
-                setStatus('Pending')
-                dataFetch = await res?.json()
-            }
+  finalData['Info'] = {nameTH: raw[clubId].thaiName, nameEN: raw[clubId].englishName, member: raw[clubId].count} ?? {}
+  finalData['Contacts'] = raw[clubId].contacts ?? {}
+  finalData['ClubArticle'] = raw[clubId].activity ?? ''
+  finalData['Advantage'] = raw[clubId].benefit ?? ''
+  finalData['Work'] = raw[clubId].portfolio ?? ''
+  finalData['ClubArticleDes'] = raw[clubId].imageURL[0]?.description ?? ''
+  finalData['AdvantageDes'] = raw[clubId].imageURL[1]?.description ?? ''
+  finalData['WorkDes'] = raw[clubId].imageURL[2]?.description ?? ''
+  finalData['Reviews'] = raw[clubId].reviews ?? []
+  finalData['reviewImageUrl'] = raw[clubId].reviewURL ?? {}
+  finalData['imageUrl'] = {
+    'first': raw[clubId].imageURL[0]?.url ?? `/assets/images/all/${clubId}-first-default.jpg`,
+    'second': raw[clubId].imageURL[1]?.url ?? `/assets/images/all/${clubId}-second-default.jpg`,
+    'third': raw[clubId].imageURL[2]?.url ?? `/assets/images/all/${clubId}-third-default.jpg`,
+    'thumbnail': raw[clubId].imageURL[3]?.url ?? `/assets/images/all/${clubId}-thumbnail-default.jpg`
+  }
 
-            if (status == '') {
-              const res = await fetch(`/api/${clubId}/handlers`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    executerUid: user?.uid,
-                    act: 'prodcontent'
-                })
-              })
-              dataFetch = await res?.json()
-              setStatus('Approved')
-            }
+  if (Object.keys(finalData).length != 0) return { props: { finalData } }
+  else return { props: { nonexisted: true } }
+}
 
-            dataFetch ? setInfo(dataFetch.Info != null ? dataFetch.Info : '') : null
-        }
-        fetchInitialData()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [user?.uid, status])
-  
-    if ((user?.club == clubId || user?.roles.hasOwnProperty('tucmc')) && info ) return (
-        <div>
-            <div className='flex flex-col justify-center h-screen w-[310px] lg:w-[691px] mx-auto text-center'>
-                <p className='text-[15.3px] leading-[18px] lg:text-[30px] lg:leading-[36px]'>ข้อมูลหน่วยงาน</p>
-                <h1 className='text-[30px] leading-[36px] lg:text-[64px] lg:leading-[78px] font-[700] mt-[59.4px] lg:mt-[56px] text-blue-edit-300'>{info?.nameTH}</h1>
-                <h1 className='text-[22.9px] leading-[28px] lg:text-[45px] lg:leading-[55px] mt-[3.23px] lg:mt-0 font-[500] opacity-60'>{info?.nameEN}</h1>
-                {/* <h1 className='text-[16.35px] leading-[20px] lg:text-[32px] lg:leading-[39px] mt-[4.7px] lg:mt-0 font-[500] opacity-60'>องค์กร {info?.member} คน</h1> */}
-                <hr className="border-[0.96px] lg:border-[2px] mt-[23.6px] lg:mt-[42px]" />
-                <div className='lg:flex lg:mt-[52px] lg:h-[116px]'>
-                    <div className='flex flex-col justify-center text-center lg:text-left lg:w-[331px] mt-[37px] lg:mt-0'>
-                        <h1 className='text-[20.7px] leading-[25px] lg:text-[34px] lg:leading-[41px] font-[400]'>แก้ไขข้อมูลหน่วยงาน</h1>
-                        <p className='text-[15.2px] leading-[18.4px] lg:text-[25px] lg:leading-[30px] font-[400] lg:mt-[7px] text-[#5C5C5C] opacity-60'>ข้อมูลจะแสดงผลในหน้าเว็บไซต์</p>
-                    </div>
-                    <div className='border-[2px] border-[#5C5C5C] opacity-60 max-lg:hidden' />
-                    <div className='lg:w-[362px] justify-center flex flex-col'>
-                        <motion.div className='relative flex flex-row justify-end max-lg:mt-[23.2px] max-lg:mx-auto'
-                        whileHover={{ scale: 1.05 }}>
-                            <Link href={`/organization/${[clubId]}/edit`}>
-                                <button className='w-[203.7px] h-[38.3px] lg:w-[335px] lg:h-[63px] bg-blue-edit-300 rounded-[13.4px] lg:rounded-[23.5px]'>
-                                    <p className='text-center text-[19.4px] leading-[24px] lg:text-[32px] lg:leading-[39px] font-500 text-white'>แก้ไข</p>
-                                </button>
-                            </Link>
-                        </motion.div>
-                        <div className='w-[220px] lg:w-[335px] ml-[54px] lg:ml-[29px]'>
-                            <p className='text-left text-[16px] leading-[21px] lg:text-[24px] lg:leading-[30px] mt-[25.7px] lg:mt-[9px] text-[#5C5C5C] flex flex-row'>สถานะ : 
-                            <span className={`ml-[5px] ${status == 'Approved'? 'text-[#19C57C]': status == 'Pending' ? 'text-[#FCB52B]': 'text-[#E80808]'} flex flex-row items-center`}> 
-                            <svg className='max-lg:hidden' width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="10" cy="10" r="10" fill={`${status == 'Approved'? '#19C57C': status == 'Pending' ? '#FCB52B': '#E80808'}`}/>
-                            </svg>
-                            <svg className='lg:hidden' width="10" height="10" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="10" cy="10" r="10" fill={`${status == 'Approved'? '#19C57C': status == 'Pending' ? '#FCB52B': '#E80808'}`}/>
-                            </svg>
-                            <p className='ml-[3px] lg:ml-[5px]'>{status == 'Approved'? 'ผ่านการตรวจสอบ': status == 'Pending' ? 'อยู่ระหว่างการตรวจสอบ': 'ไม่ผ่านการตรวจสอบ'}</p>
-                            </span> </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+const LandingEdit = ({ clubId, finalData }) => {
+  const { user } = useAuth()
+  const [load, setLoad] = useState<boolean>(true)
+  const [info, setInfo] = useState<{ [key: string]: string }>({})
+  const [contacts, setContacts] = useState({})
+  const [clubArticle, setClubArticle] = useState("")
+  const [clubArticleDes, setClubArticleDes] = useState("")
+  const [advantage, setAdvantage] = useState("")
+  const [advantageDes, setAdvantageDes] = useState("")
+  const [work, setWork] = useState("")
+  const [workDes, setWorkDes] = useState("")
+  const [reviews, setReviews] = useState([])
+  // const [status, setStatus] = useState()
+
+  // const topic = ["ชมรมนี้ทำอะไร","ประโยชน์ที่ได้รับจากการเข้าชมรม","ผลงานของชมรม"]
+
+  const [imagesLink, setImagesLink] = useState<{ [key: string]: string }>({})
+  const [reviewImagesLink, setReviewImagesLink] = useState({})
+
+  useEffect(() => {
+    // const fetchInitialData = async () => {
+
+    //     // const res = await fetch(`/api/${clubId}/handlers`, {
+    //     //   method: "POST",
+    //     //   body: JSON.stringify({
+    //     //     executerUid: user?.uid,
+    //     //     act: "getContent",
+    //     //   }),
+    //     // })
+    //     // const dataFetch = await res?.json()
+
+    //   // setReviewImagesLink(dataFetch?.reviewImageUrl ?? {})
+    //   // setImagesLink(dataFetch?.imageUrl ?? {})
+    //   // setInfo(dataFetch.Info != null ? dataFetch.Info : "")
+    //   // setContacts(dataFetch?.Contacts != null ? dataFetch.Contacts : {})
+    //   // setClubArticle(dataFetch?.ClubArticle)
+    //   // setClubArticleDes(dataFetch?.ClubArticleDes)
+    //   // setAdvantage(dataFetch?.Advantage)
+    //   // setAdvantageDes(dataFetch?.AdvantageDes)
+    //   // setWork(dataFetch?.Work)
+    //   // setWorkDes(dataFetch?.WorkDes)
+    //   // setReviews(dataFetch?.Reviews != null ? dataFetch.Reviews : [])
+    // }
+    // fetchInitialData()
+    setReviewImagesLink(finalData?.reviewImageUrl ?? {})
+    setImagesLink(finalData?.imageUrl ?? {})
+    setInfo(finalData.Info != null ? finalData.Info : "")
+    setContacts(finalData?.Contacts != null ? finalData.Contacts : {})
+    setClubArticle(finalData?.ClubArticle)
+    setClubArticleDes(finalData?.ClubArticleDes)
+    setAdvantage(finalData?.Advantage)
+    setAdvantageDes(finalData?.AdvantageDes)
+    setWork(finalData?.Work)
+    setWorkDes(finalData?.WorkDes)
+    setReviews(finalData?.Reviews != null ? finalData.Reviews : [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.uid])
+
+  if (info) return (
+    <div className='flex flex-col overflow-hidden max-lg:bg-gradient-edit lg:bg-cream'>
+        <ArticleBackground classname='max-lg:hidden' />
+        <div className='mx-auto mt-[104px] w-[311px] lg:w-[1000px] lg:mt-[175px] flex max-[1080px]:ml-[30px] z-10 '>
+            <Link href={`/`}>
+                <button className='flex'>
+                    <ArrowCircleLeftIcon className='h-[15px] w-[15px] lg:h-[30px] lg:w-[30px]' />
+                    <p className='text-xs leading-[15px] ml-[3.68px] lg:ml-[7.25px] lg:text-xl lg:leading-[29px]'>ย้อนกลับ</p>
+                </button>
+            </Link>
         </div>
-    )
+        
+        <MainRenderer
+            // editable={false}
+            type="organization"
+            info={info}
+            contacts={contacts}
+            clubArticle={clubArticle}
+            clubArticleDes={clubArticleDes}
+            advantage={advantage}
+            advantageDes={advantageDes}
+            work={work}
+            workDes={workDes}
+            reviews={reviews}
+            reviewImagesLink={reviewImagesLink}
+            imagesLink={imagesLink}
+        />
+    </div>
+)
 
-    // if (info) return (
-    //     <div className='flex flex-col max-lg:bg-gradient-edit lg:bg-cream'>
-    //         <MainRenderer
-    //             // editable={false}
-    //             info={info}
-    //             contacts={contacts}
-    //             clubArticle={clubArticle}
-    //             clubArticleDes={clubArticleDes}
-    //             advantage={advantage}
-    //             advantageDes={advantageDes}
-    //             work={work}
-    //             workDes={workDes}
-    //             reviews={reviews}
-    //         />
-    //     </div>
-    // )
-
-    return (
-        <>
-            <h3>{clubId} not appeared to have article</h3>
-        </>
-    )
+  return (
+    <>
+      <h3>{clubId} not appeared to have article</h3>
+    </>
+  )
 }
 
 export default LandingEdit
