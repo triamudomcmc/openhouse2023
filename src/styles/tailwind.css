@@ -101,6 +101,10 @@
     background: linear-gradient(180deg, #FED354 0%, #E96F26 100%);
   }
 
+  .live-flag{
+    background: linear-gradient(180deg, #89AAD8 0%, #BDCCDE 100%);
+  }
+  
   #privacy-policy ol,
   #tos ol {
     counter-reset: item;

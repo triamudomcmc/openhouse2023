@@ -42,7 +42,7 @@ export const Footer: FC<{ theme?: string }> = ({ theme }) => {
   const { user, signout } = useAuth()
 
   return (
-    <footer className={`w-full px-8 pt-10 antialiased ${theme == "light" ? "bg-white" : "bg-blue-text"}`}>
+    <footer className={`w-full px-8 pt-10 antialiased relative ${theme == "light" ? "bg-white" : "bg-blue-text"}`}>
       <div className="flex flex-col items-center justify-between w-full max-w-6xl px-0 mx-auto sm:flex-row sm:items-start sm:px-20">
         <div className="flex justify-center">
           <div className="space-y-5 text-center sm:text-left">
