@@ -59,6 +59,9 @@ export const updateArticleToPending = async (clubId: string, data): Promise<void
   }
   await adminDb.collection("pendingAppr").doc(clubId).set(finalData, { merge: true })
 
+  const ref = await adminDb.collection("pendingAppr").doc(clubId)
+  await ref.set(finalData, {merge: true})
+  if ((await ref.get()).data().declined) await adminDb.collection('pendingAppr').doc(clubId).update({declined: firestore.FieldValue.delete()})
   return
 }
 
