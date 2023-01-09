@@ -20,9 +20,9 @@ const Show = ({ data, key }: { data: any, key: number }) => {
         className="text-blue-gifted text-center w-[250px] lg:w-[350px] mx-auto mt-6 "
       >
             <div className="flex">
-              <h1 className="text-[15px] text-center lg:text-[26px] font-[600] lg:leading-[32px]">{data.start}</h1>
+              <h1 className="text-[20px] leading-[26px] text-center lg:text-[26px] font-[600] lg:leading-[32px]">{data.start}</h1>
               <div className="ml-[10px]">
-                <h1 className="text-[15px] text-left font-[500] lg:text-[26px] lg:leading-[32px]">{data.name}</h1>
+                <p className=" text-left font-[500] text-[20px] leading-[26px] lg:text-[26px] lg:leading-[32px]">{data.name}</p>
                 <h1 className="text-[15px] text-left font-[500] lg:text-[17px] text-[#FEF2DC]">{data.performer}</h1>
               </div>
               {/* <h1 className="text-[15px] text-center font-light h-[45px]">{data.finish}</h1> */}
@@ -94,7 +94,7 @@ const Page = ({ schedule13, schedule14 }: { schedule13 : any, schedule14 : any }
         <div className="relative lg:top-[-68px] w-screen lg:left-0 max-lg:hidden">
           <LiveScheduleBg classname="absolute object-cover overflow-x-hidden " />
         </div>
-        <div className="max-w-7xl mx-auto justify-evenly lg:mt-[68px] min-[1080px]:flex">
+        <div className="max-w-7xl mx-auto justify-evenly lg:pt-[108px] min-[1080px]:flex">
           <div className="relative z-10 justify-center">
             <div className="">
               <Hanger classname="lg:w-[540px] w-[350px] mx-auto max-[1080px]:pt-16" />
