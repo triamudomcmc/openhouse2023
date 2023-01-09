@@ -31,6 +31,7 @@ import RomanTower, { RomanTowerClubs } from "@vectors/romanTower";
 import { ClubsBg, ClubsGate, Sun } from "@vectors/background/clubsGate";
 import { MoreInfoBg, MoreInfoFlag, MoreInfoRight } from "@vectors/background/MoreInfo";
 import { GiftedBg, GiftedEng, GiftedMath, GiftedSci, GiftedSciMath, GiftedThai, Student } from "@vectors/icons/gifted"
+import { LiveBg } from "@vectors/background/live"
 
 const OpeningTime = +new Date(2023, 0, 13, 9, 0, 0, 0)
 
@@ -99,6 +100,26 @@ export default function Home() {
         </div>
       </main>
 
+      <section className="relative flex w-screen min-h-screen">
+        {/* <div className="">
+          <LiveBg classname="absolute object-cover h-full min-h-screen -z-10" />
+        </div> */}
+        <div className="absolute w-full">
+          <LiveBg classname="object-cover h-full min-h-screen overflow-x-hidden" />
+        </div>
+        <div className="relative m-auto">
+          <iframe
+                className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[82vw] sm:h-[46vw] lg:w-[841px] lg:h-[483px] border border-white border-opacity-50 rounded-xl"
+                src="https://www.youtube.com/embed/q5nAxoCIvy4"
+                frameBorder="0"
+                allowFullScreen={true}
+                scrolling="no"
+                height="378"
+                width="620"
+              ></iframe>
+        </div>
+      </section>
+
       <section className="relative flex items-center justify-center w-screen">
           <div className="relative w-full -z-10 -left-1/3 lg:left-0">
             <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
@@ -119,7 +140,6 @@ export default function Home() {
           </div>
       </section> 
 
-  
       <section className="relative lg:min-h-[1024px] bg-[#F9DBC4]" >
         {width >= LG ? (
         <div className="relative w-screen bg-[#F9DBC4] flex justify-between">
