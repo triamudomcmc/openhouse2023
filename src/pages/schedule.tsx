@@ -104,7 +104,7 @@ const Page = ({ schedule13, schedule14 }: { schedule13 : any, schedule14 : any }
               <h1 className="text-center text-[#FEF2DC] text-[28px] leading-[36px] lg:text-[42px] lg:leading-[60px]">13 JANUARY 2023</h1>
               <hr className="text-[#FFE0A4] lg:mx-8 mx-6" />
               {schedule13.map((e: any, i: number) => (
-                <div className="flex flex-row justify-evenly lg:w-[400px] mx-auto" onClick={()=> console.log(i)}>
+                <div key={i} className="flex flex-row justify-evenly lg:w-[400px] mx-auto" onClick={()=> console.log(i)}>
                   {/* {i == schedule13.length-5 ? (
                       <div className="mx-auto bg-black rounded-full lg:w-4 lg:h-4 lg:mt-8"></div>
                     ):(
@@ -124,7 +124,7 @@ const Page = ({ schedule13, schedule14 }: { schedule13 : any, schedule14 : any }
               <h1 className="text-center text-[#FEF2DC] text-[28px] leading-[36px] lg:text-[42px] lg:leading-[60px]">14 JANUARY 2023</h1>
               <hr className="text-[#FFE0A4] lg:mx-8 mx-6" />
               {schedule14.map((e: any, i: number) => (
-                <div className="flex flex-row justify-evenly lg:w-[400px] mx-auto" onClick={()=> console.log(i)}>
+                <div key={i} className="flex flex-row justify-evenly lg:w-[400px] mx-auto" onClick={()=> console.log(i)}>
                   {/* {i == schedule13.length-5 ? (
                       <div className="mx-auto bg-black rounded-full lg:w-4 lg:h-4 lg:mt-8"></div>
                     ):(
