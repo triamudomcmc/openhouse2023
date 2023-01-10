@@ -25,20 +25,60 @@ import {
 } from "@vectors/common/organization";
 import { LG, MD } from "@utilities/breakpoints"
 import { useWindowDimensions } from "@utilities/useWindowDimensions"
-// import { ArtsChinese, ArtsEspanol, ArtsFrench, ArtsGerman, ArtsJapanese, ArtsKorean, ArtsMath, SciMath } from "@vectors/icons/programmes";
 import { Programme } from "@components/programme";
 import RomanTower, { RomanTowerClubs } from "@vectors/romanTower";
 import { ClubsBg, ClubsGate, Sun } from "@vectors/background/clubsGate";
 import { MoreInfoBg, MoreInfoFlag, MoreInfoRight } from "@vectors/background/MoreInfo";
 import { GiftedBg, GiftedEng, GiftedMath, GiftedSci, GiftedSciMath, GiftedThai, Student } from "@vectors/icons/gifted"
-import { LiveBg } from "@vectors/background/live"
+import { LiveBg, LiveBgPhone } from "@vectors/background/live"
+
+import fs from "fs"
+import { GetStaticProps } from "next"
 
 const OpeningTime = +new Date(2023, 0, 13, 9, 0, 0, 0)
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async () => {
+  const data = fs.readFileSync("./src/_data/_maps/schedule13.json", {
+    encoding: "utf8",
+  })
+  const obj = JSON.parse(data)
+  const items = Object.values(obj) as [
+    {
+      Name: string,
+      Performer: string,
+      Start: string,
+      Finish: string
+    }
+  ]
+  const schedule = items.map((item) => {
+    return {
+      name: item.Name,
+      performer: item.Performer,
+      start: item.Start,
+      finish: item.Finish
+    }
+  })
+  
+  return {
+    props: {
+      schedule: schedule,
+    },
+  }
+}
+
+const findCurrent = (sc: Array<any>) => {
+  const time = new Date().getTime()
+  const fil = sc.filter((e: any) => e.start * 1000 < time)
+  const file = sc.filter((e: any) => e.start * 1000 > time)
+  console.log(time)
+  return { now: fil[fil.length - 1], next: file[0] }
+}
+
+export default function Home({schedule}) {
   const { user, signinWithGoogle, signout } = useAuth()
   const [timeLeft, setTimeLeft] = useState(null)
   const width = useWindowDimensions().width
+  const [current, setCurrent] = useState(findCurrent(schedule).now)
 
   useEffect(() => {
     const calTimeLeft = () => {
@@ -100,14 +140,17 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="relative flex w-screen min-h-screen">
+      <section className="relative flex w-screen min-h-screen bg-[#F4C9A9]">
         {/* <div className="">
           <LiveBg classname="absolute object-cover h-full min-h-screen -z-10" />
         </div> */}
-        <div className="absolute w-full">
+        <div className="absolute w-full translate-x-1/2 -left-1/2 max-lg:hidden ">
           <LiveBg classname="object-cover h-full min-h-screen overflow-x-hidden" />
         </div>
-        <div className="relative m-auto">
+        <div className="absolute left-0 top-auto w-full lg:hidden ">
+          <LiveBgPhone classname="object-cover h-full min-h-screen overflow-x-hidden" />
+        </div>
+        {/* <div className="relative m-auto">
           <iframe
                 className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[82vw] sm:h-[46vw] lg:w-[841px] lg:h-[483px] border border-white border-opacity-50 rounded-xl"
                 src="https://www.youtube.com/embed/q5nAxoCIvy4"
@@ -117,10 +160,67 @@ export default function Home() {
                 height="378"
                 width="620"
               ></iframe>
+        </div> */}
+         <div className="flex lg:flex-row z-10 items-center flex-col mx-auto lg:space-y-0 space-y-4 space-x-0 lg:space-x-8 pt-[80px]">
+            <div className="my-auto">
+              <iframe
+                className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
+                src="https://www.youtube.com/embed/q5nAxoCIvy4"
+                frameBorder="0"
+                allowFullScreen={true}
+                scrolling="no"
+                height="378"
+                width="620"
+              ></iframe>
+              <div className="mb-4">
+                <h3 className="flex items-center space-x-3 mt-[20px]">
+                  <span className="text-white bg-[#D94B3F] font-semibold tracking-[3px] leading-[21px] sm:text-md text-sm rounded-sm px-[3px]">
+                    LIVE
+                  </span>{" "}
+                  <span className="min-[1024px]:text-[38px] lg:text-[28px] text-[20px] font-[600]">{current?.name || ""}</span>
+                </h3>
+                <Link href="/schedule">
+                  <motion.a
+                      whileHover={{ scale: 1.02 }}
+                      className="underline cursor-pointer text-md sm:text-lg live-button rounded-xl bg-white sm:flex justify-center space-x-3 px-6 py-4 hidden lg:w-[275px] xl:hidden text-[#2E2D56]"
+                  >
+                      ดูตารางรายการสดทั้งหมด
+                  </motion.a>
+              </Link>
+                <div>
+                  {/* <span className="text-sm font-light sm:text-md">ชื่อชมรมร้องเพลงปิ่นหทัย | 10.30-11.35 น.</span> */}
+                </div>
+              </div>
+          </div>
+          <div className="block lg:hidden xl:block">
+            <div className="px-6 text-blue-gifted xl:mt-[-200px]">
+              <p className="text-[18px] lg:text-[24px] leading-[36px] font-[400]">LIVE SCHEDULE</p>
+              <p className="font-[800] text-[24px] lg:text-[48px] mt-[-6px]">15 JANUARY 2022</p>
+            </div>
+            <div className="min-w-[300px] max-w-[400px] px-[20px] sm:min-w-[380px] mx-auto">
+              <div className="max-w-[400px] max-h-[400px] overflow-y-auto mb-[20px] space-y-4 mx-auto">
+              {schedule.map((item: any, index: number) => {
+                  return (
+                    <div key={`e-${index}`} className="flex w-full px-3 py-2 bg-[#FEF2DC] bg-opacity-80 border border-[#FEF2DC] rounded-[22px]">
+                      <div className="">
+                        <p className="font-[600] w-[65px] lg:w-[80px] text-[20px] lg:text-[24px]">
+                          {item.start}
+                        </p>
+                      </div>
+                      <div className="">
+                        <p className="text-[20px] lg:text-[24px]">{item.name}</p>
+                        <p className="text-[16px] lg:text-[18px]">{item.performer}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="relative flex items-center justify-center w-screen">
+      <section className="relative z-20 flex items-center justify-center w-screen">
           <div className="relative w-full -z-10 -left-1/3 lg:left-0">
             <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
           </div>

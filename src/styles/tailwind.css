@@ -104,6 +104,11 @@
   .live-flag{
     background: linear-gradient(180deg, #89AAD8 0%, #BDCCDE 100%);
   }
+
+  .live-button{
+    background: linear-gradient(180deg, #CEDBE7 -47.06%, #94A9C6 113.6%);
+    box-shadow: 0px 2.21142px 2.21142px #37498B;
+  }
   
   #privacy-policy ol,
   #tos ol {
