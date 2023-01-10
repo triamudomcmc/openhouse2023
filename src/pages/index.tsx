@@ -193,12 +193,12 @@ export default function Home({schedule}) {
               </div>
           </div>
           <div className="block lg:hidden xl:block">
-            <div className="px-6 text-blue-gifted xl:mt-[-200px]">
+            <div className="px-6 text-blue-gifted xl:mt-[-100px]">
               <p className="text-[18px] lg:text-[24px] leading-[36px] font-[400]">LIVE SCHEDULE</p>
               <p className="font-[800] text-[24px] lg:text-[48px] mt-[-6px]">15 JANUARY 2022</p>
             </div>
             <div className="min-w-[300px] max-w-[400px] px-[20px] sm:min-w-[380px] mx-auto">
-              <div className="max-w-[400px] max-h-[400px] overflow-y-auto mb-[20px] space-y-4 mx-auto">
+              <div className="max-w-[400px] max-h-[400px] overflow-y-auto my-[20px] space-y-4 mx-auto">
               {schedule.map((item: any, index: number) => {
                   return (
                     <div key={`e-${index}`} className="flex w-full px-3 py-2 bg-[#FEF2DC] bg-opacity-80 border border-[#FEF2DC] rounded-[22px]">
