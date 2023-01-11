@@ -163,6 +163,17 @@ export default function Home({schedule}) {
         </div> */}
          <div className="flex lg:flex-row z-10 items-center flex-col mx-auto lg:space-y-0 space-y-4 space-x-0 lg:space-x-8 pt-[80px]">
             <div className="my-auto">
+            <div className="flex justify-between w-full mb-4">
+                <h3 className="flex items-center space-x-3 mt-[20px]">
+                  <span className="text-white bg-[#D94B3F] font-semibold tracking-[3px] leading-[21px] sm:text-md text-sm rounded-sm px-[3px]">
+                    LIVE
+                  </span>{" "}
+                  {/* <span className="min-[1024px]:text-[38px] lg:text-[28px] text-[20px] font-[600]">{current?.name || ""}</span> */}
+                </h3>
+                <div>
+                  {/* <span className="text-sm font-light sm:text-md">ชื่อชมรมร้องเพลงปิ่นหทัย | 10.30-11.35 น.</span> */}
+                </div>
+              </div>
               <iframe
                 className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
                 src="https://www.youtube.com/embed/q5nAxoCIvy4"
@@ -172,25 +183,14 @@ export default function Home({schedule}) {
                 height="378"
                 width="620"
               ></iframe>
-              <div className="mb-4">
-                <h3 className="flex items-center space-x-3 mt-[20px]">
-                  <span className="text-white bg-[#D94B3F] font-semibold tracking-[3px] leading-[21px] sm:text-md text-sm rounded-sm px-[3px]">
-                    LIVE
-                  </span>{" "}
-                  <span className="min-[1024px]:text-[38px] lg:text-[28px] text-[20px] font-[600]">{current?.name || ""}</span>
-                </h3>
-                <Link href="/schedule">
+              <Link href="/schedule">
                   <motion.a
                       whileHover={{ scale: 1.02 }}
-                      className="underline cursor-pointer text-md sm:text-lg live-button rounded-xl bg-white sm:flex justify-center space-x-3 px-6 py-4 hidden lg:w-[275px] xl:hidden text-[#2E2D56]"
+                      className="underline cursor-pointer text-md sm:text-lg live-button rounded-xl bg-white sm:flex justify-center space-x-3 px-6 py-4 hidden mt-[20px] mx-auto lg:w-[275px] xl:hidden text-[#2E2D56]"
                   >
                       ดูตารางรายการสดทั้งหมด
                   </motion.a>
               </Link>
-                <div>
-                  {/* <span className="text-sm font-light sm:text-md">ชื่อชมรมร้องเพลงปิ่นหทัย | 10.30-11.35 น.</span> */}
-                </div>
-              </div>
           </div>
           <div className="block lg:hidden xl:block">
             <div className="px-6 text-blue-gifted xl:mt-[-100px]">
@@ -208,7 +208,7 @@ export default function Home({schedule}) {
                         </p>
                       </div>
                       <div className="">
-                        <p className="text-[20px] lg:text-[24px]">{item.name}</p>
+                        <p className="text-[20px] lg:text-[24px] font-[600]">{item.name}</p>
                         <p className="text-[16px] lg:text-[18px]">{item.performer}</p>
                       </div>
                     </div>
