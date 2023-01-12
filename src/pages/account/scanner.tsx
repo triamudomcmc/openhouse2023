@@ -103,6 +103,10 @@ export default function Scan() {
               onResult={(result, error) => {
                 handleQrUid(result, error)
               }}
+              videoStyle={{
+                objectFit: "cover",
+                borderRadius: "25.56px"
+              }}
               constraints={{ facingMode: "environment" }}
               containerStyle={{ "borderRadius": "25.56px" }}
             />

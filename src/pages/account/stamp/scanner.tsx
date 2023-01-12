@@ -66,6 +66,8 @@ const Page = () => {
           uid: uid,
         }),
       })
+
+      console.log(res)
       if (res?.ok) setStampPress(true)
     }
   }
@@ -123,6 +125,10 @@ const Page = () => {
                 onResult={(result, error) => {
                   handleQrUid(result, error)
                 }}
+                videoStyle={{
+                  objectFit: "cover",
+                  borderRadius: "25.56px"
+                }}
                 constraints={{ facingMode: "environment" }}
                 containerStyle={{ "border-radius": "25.56px" }}
               />
@@ -131,9 +137,9 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center mt-4 w-[191px]">
+          <div className="flex flex-col items-center w-full mt-4">
             <div className={`mb-2 ${buttonDisable ? 'cursor-not-allowed' : 'cursor-pointer'}`} aria-disabled={buttonDisable}>{descriptionVariants[buttonNum]}</div>
-            <div className="flex flex-col text-[#37498B] text-lg w-full">
+            <div className="flex flex-col text-[#37498B] text-lg mt-2">
               <span className="font-semibold">
                 ชื่อ :{" "}
                 <span className="font-light">
