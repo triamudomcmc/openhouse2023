@@ -17,19 +17,60 @@ import { Footer } from "@components/common/Footer"
 import { AIC, Organization, OrganizationPhone, TUCMC, TUPRO, TUSC, WinkWink } from "@vectors/common/organization"
 import { LG, MD } from "@utilities/breakpoints"
 import { useWindowDimensions } from "@utilities/useWindowDimensions"
-// import { ArtsChinese, ArtsEspanol, ArtsFrench, ArtsGerman, ArtsJapanese, ArtsKorean, ArtsMath, SciMath } from "@vectors/icons/programmes";
-import { Programme } from "@components/programme"
-import RomanTower, { RomanTowerClubs } from "@vectors/romanTower"
-import { ClubsBg, ClubsGate, Sun } from "@vectors/background/clubsGate"
-import { MoreInfoBg, MoreInfoFlag, MoreInfoRight } from "@vectors/background/MoreInfo"
+import { Programme } from "@components/programme";
+import RomanTower, { RomanTowerClubs } from "@vectors/romanTower";
+import { ClubsBg, ClubsGate, Sun } from "@vectors/background/clubsGate";
+import { MoreInfoBg, MoreInfoFlag, MoreInfoRight } from "@vectors/background/MoreInfo";
 import { GiftedBg, GiftedEng, GiftedMath, GiftedSci, GiftedThai, Student } from "@vectors/icons/gifted"
+import { LiveBg, LiveBgPhone } from "@vectors/background/live"
+
+import fs from "fs"
+import { GetStaticProps } from "next"
 
 const OpeningTime = +new Date(2023, 0, 13, 9, 0, 0, 0)
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async () => {
+  const data = fs.readFileSync("./src/_data/_maps/schedule13.json", {
+    encoding: "utf8",
+  })
+  const obj = JSON.parse(data)
+  const items = Object.values(obj) as [
+    {
+      Name: string,
+      Performer: string,
+      Start: string,
+      Finish: string
+    }
+  ]
+  const schedule = items.map((item) => {
+    return {
+      name: item.Name,
+      performer: item.Performer,
+      start: item.Start,
+      finish: item.Finish
+    }
+  })
+  
+  return {
+    props: {
+      schedule: schedule,
+    },
+  }
+}
+
+const findCurrent = (sc: Array<any>) => {
+  const time = new Date().getTime()
+  const fil = sc.filter((e: any) => e.start * 1000 < time)
+  const file = sc.filter((e: any) => e.start * 1000 > time)
+  console.log(time)
+  return { now: fil[fil.length - 1], next: file[0] }
+}
+
+export default function Home({schedule}) {
   const { user, signinWithGoogle, signout } = useAuth()
   const [timeLeft, setTimeLeft] = useState(null)
   const width = useWindowDimensions().width
+  const [current, setCurrent] = useState(findCurrent(schedule).now)
 
   useEffect(() => {
     const calTimeLeft = () => {
@@ -91,17 +132,79 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="relative flex items-center justify-center w-screen">
-        <div className="relative w-full -z-10 -left-1/3 lg:left-0">
-          <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
+      <section className="relative flex w-screen min-h-screen bg-[#F4C9A9]">
+        <div className="absolute w-full translate-x-1/2 -left-1/2 max-lg:hidden ">
+          <LiveBg classname="object-cover h-full min-h-screen overflow-x-hidden" />
         </div>
-        <div className="absolute flex left-[20px] lg:left-[82px] max-lg:top-[150px] lg:mt-[-200px] ">
-          <BigFrame classname="lg:w-[302px] w-[190px]" />
-          <div className="font-[700] text-[50px] leading-[55px] lg:text-[85px] lg:leading-[90px] mt-[50px] lg:mt-[50px] text-[#404E81]">
-            <p>สาย</p>
-            <p>การ</p>
-            <p>เรียน</p>
+        <div className="absolute left-0 top-auto w-full lg:hidden ">
+          <LiveBgPhone classname="object-cover h-full min-h-screen overflow-x-hidden" />
+        </div>
+         <div className="flex lg:flex-row z-10 items-center flex-col mx-auto lg:space-y-0 space-y-4 space-x-0 lg:space-x-8 pt-[80px]">
+            <div className="my-auto">
+            <div className="flex justify-between w-full mb-4">
+                <h3 className="flex items-center space-x-3 mt-[20px]">
+                  <span className="text-white bg-[#D94B3F] font-semibold tracking-[3px] leading-[21px] sm:text-md text-sm rounded-sm px-[3px]">
+                    LIVE
+                  </span>{" "}
+                </h3>
+              </div>
+              <iframe
+                className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
+                src="https://www.youtube.com/embed/q5nAxoCIvy4"
+                frameBorder="0"
+                allowFullScreen={true}
+                scrolling="no"
+                height="378"
+                width="620"
+              ></iframe>
+              <Link href="/schedule">
+                  <motion.a
+                      whileHover={{ scale: 1.02 }}
+                      className="underline cursor-pointer text-md sm:text-lg live-button rounded-xl bg-white sm:flex justify-center space-x-3 px-6 py-4 hidden mt-[20px] mx-auto lg:w-[275px] xl:hidden text-[#2E2D56]"
+                  >
+                      ดูตารางรายการสดทั้งหมด
+                  </motion.a>
+              </Link>
           </div>
+          <div className="block lg:hidden xl:block">
+            <div className="px-6 text-blue-gifted xl:mt-[-100px]">
+              <p className="text-[18px] lg:text-[24px] leading-[36px] font-[400]">LIVE SCHEDULE</p>
+              <p className="font-[800] text-[24px] lg:text-[48px] mt-[-6px]">15 JANUARY 2022</p>
+            </div>
+            <div className="min-w-[300px] max-w-[400px] px-[20px] sm:min-w-[380px] mx-auto">
+              <div className="max-w-[400px] max-h-[400px] overflow-y-auto my-[20px] space-y-4 mx-auto">
+              {schedule.map((item: any, index: number) => {
+                  return (
+                    <div key={`e-${index}`} className="flex w-full px-3 py-2 bg-[#FEF2DC] bg-opacity-80 border border-[#FEF2DC] rounded-[22px]">
+                      <div className="">
+                        <p className="font-[600] w-[65px] lg:w-[80px] text-[20px] lg:text-[24px]">
+                          {item.start}
+                        </p>
+                      </div>
+                      <div className="">
+                        <p className="text-[20px] lg:text-[24px] font-[600]">{item.name}</p>
+                        <p className="text-[16px] lg:text-[18px]">{item.performer}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative flex items-center justify-center w-screen">
+          <div className="relative w-full -z-10 -left-1/3 lg:left-0">
+            <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
+          </div>
+          <div className="absolute flex left-[20px] lg:left-[82px] max-lg:top-[150px] lg:mt-[-200px] ">
+            <BigFrame classname="lg:w-[302px] w-[190px]"/>
+            <div className="font-[700] text-[50px] leading-[55px] lg:text-[85px] lg:leading-[90px] mt-[50px] lg:mt-[50px] text-[#404E81]">
+              <p>สาย</p>
+              <p>การ</p>
+              <p>เรียน</p>
+            </div>
         </div>
         <div className="absolute flex w-[193px] items-center justify-center lg:w-[240px] lg:right-[100px] bottom-[50px] ml-[20px] max-lg:w-[193px] max-lg:h-[65px] max-xl:backdrop-blur-lg max-xl:bg-[#FADCC5] max-xl:rounded-xl max-xl:bg-opacity-70 lg:bottom-[120px]">
           <div className="text-[16px] leading-[24px] lg:text-[24px] flex flex-col items-center justify-center lg:leading-[38px] text-black">
@@ -109,9 +212,10 @@ export default function Home() {
             <p>สายการเรียนที่สนใจ</p>
           </div>
         </div>
-      </section>
+      </section> 
 
-      <section className="relative lg:min-h-[1024px] bg-[#F9DBC4]">
+  
+      <section className="relative lg:min-h-[1024px] bg-[#F9DBC4]" >
         {width >= LG ? (
           <div className="relative w-screen bg-[#F9DBC4] flex justify-between">
             <div className="lg:min-h-[1024px]">
