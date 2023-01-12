@@ -51,7 +51,7 @@ export default function Scan() {
       
     </span>,
     <div key="stamped" className="bg-[#C9CCE9] py-0.5 px-5 rounded-full">
-      <span className="text-white font-semibold">STAMPED</span>
+      <span className="font-semibold text-white">STAMPED</span>
     </div>,
   ]
 
@@ -69,7 +69,14 @@ export default function Scan() {
   }
 
   useEffect(() => {
-    if (uid) mark(uid)
+    if (uid) {
+      if (uid.includes("TUMSO")) {
+        setMarked(true)
+        setFDVariant(1)
+      }else{
+        mark(uid)
+      }
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid, user?.uid])
 
