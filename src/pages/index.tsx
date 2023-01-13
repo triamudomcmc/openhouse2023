@@ -150,7 +150,7 @@ export default function Home({schedule}) {
               </div>
               <iframe
                 className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
-                src="https://www.youtube.com/embed/q5nAxoCIvy4"
+                src=""
                 frameBorder="0"
                 allowFullScreen={true}
                 scrolling="no"
