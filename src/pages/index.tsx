@@ -206,16 +206,16 @@ export default function Home({schedule}) {
       </section>
 
       <section className="relative flex items-center justify-center w-screen">
-          <div className="relative w-full -z-10 -left-1/3 lg:left-0">
-            <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
+        <div className="relative w-full -left-1/3 lg:left-0">
+          <StairPrograammes className="object-cover h-full min-h-screen overflow-x-hidden bg-landing-programme" />
+        </div>
+        <div className="absolute flex left-[20px] lg:left-[82px] max-lg:top-[150px] lg:mt-[-200px] ">
+          <BigFrame classname="lg:w-[302px] w-[190px]" />
+          <div className="font-[700] text-[50px] leading-[55px] lg:text-[85px] lg:leading-[90px] mt-[50px] lg:mt-[50px] text-[#404E81]">
+            <p>สาย</p>
+            <p>การ</p>
+            <p>เรียน</p>
           </div>
-          <div className="absolute flex left-[20px] lg:left-[82px] max-lg:top-[150px] lg:mt-[-200px] ">
-            <BigFrame classname="lg:w-[302px] w-[190px]"/>
-            <div className="font-[700] text-[50px] leading-[55px] lg:text-[85px] lg:leading-[90px] mt-[50px] lg:mt-[50px] text-[#404E81]">
-              <p>สาย</p>
-              <p>การ</p>
-              <p>เรียน</p>
-            </div>
         </div>
         <div className="absolute flex w-[193px] items-center justify-center lg:w-[240px] lg:right-[100px] bottom-[50px] ml-[20px] max-lg:w-[193px] max-lg:h-[65px] max-xl:backdrop-blur-lg max-xl:bg-[#FADCC5] max-xl:rounded-xl max-xl:bg-opacity-70 lg:bottom-[120px]">
           <div className="text-[16px] leading-[24px] lg:text-[24px] flex flex-col items-center justify-center lg:leading-[38px] text-black">
@@ -223,7 +223,7 @@ export default function Home({schedule}) {
             <p>สายการเรียนที่สนใจ</p>
           </div>
         </div>
-      </section> 
+      </section>
 
   
       <section className="relative lg:min-h-[1024px] bg-[#F9DBC4]" >
