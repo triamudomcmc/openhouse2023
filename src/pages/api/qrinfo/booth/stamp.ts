@@ -8,7 +8,7 @@ export default async function Stamp(req, res) {
         return await executeOverPerm(
             req,
             res,
-            ["tucmc", "aic", "tusc", "teacher"],
+            ["tucmc", "aic", "staff"],
             async (req, res) => {
               const stampRes = await stamp(body.club, body.clubName, body.uid, body.executerUid)
               if (stampRes) return res.send(200)
