@@ -145,7 +145,7 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
                     <div className="flex flex-col items-center justify-center">
                       <p className="font-[700] text-[14px] leading-[17px]">
                         TRIAM UDOM
-                        <span className="font-[400] block text-[10px] leading-[13px]">ONLINE OPEN HOUSE 2023</span>
+                        <span className="font-[400] block text-[10px] leading-[13px]">OPEN HOUSE 2023</span>
                       </p>
                     </div>
                   </div>
