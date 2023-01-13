@@ -150,13 +150,24 @@ export default function Home({schedule}) {
               </div>
               <iframe
                 className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
-                src=""
+                src="https://player.twitch.tv/?channel=TriamUdomOPH&parent=openhouse.triamudom.ac.th"
                 frameBorder="0"
                 allowFullScreen={true}
                 scrolling="no"
                 height="378"
                 width="620"
               ></iframe>
+              {/* <iframe src="https://player.twitch.tv/?channel=triamudomoph&parent=openhouse.triamudom.ac.th"
+               frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe> */}
+               {/* <iframe
+                className="bg-black w-[90vw] h-[48vw] mx-auto sm:w-[620px] sm:h-[378px] min-[1024px]:w-[841px] min-[1024px]:h-[483px] border border-white border-opacity-50 rounded-xl"
+                src="https://player.twitch.tv/?channel=triamudomoph&parent=openhouse.triamudom.ac.th"
+                frameBorder="0"
+                allowFullScreen={true}
+                scrolling="no"
+                height="378"
+                width="620"
+              ></iframe> */}
               <Link href="/schedule">
                   <motion.a
                       whileHover={{ scale: 1.02 }}
