@@ -63,11 +63,7 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
         </Link>
         {/* <div className="flex"> */}
         <div
-          className={`flex items-center w-full justify-evenly ${
-            user?.roles?.hasOwnProperty("tucmc") || user?.roles?.hasOwnProperty("clubPresident")
-              ? "max-w-[600px]"
-              : "max-w-[600px]"
-          }`}
+          className={`flex items-center w-full justify-evenly max-w-[700px] `}
         >
           <div className=" px-full hover:underline">
             <Link href={`/`}>หน้าแรก</Link>
@@ -77,9 +73,6 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
           </div>
           <div className="cursor-pointer hover:underline">
             <Link href={`/directions`}>การเดินทางมาโรงเรียนเตรียมฯ</Link>
-          </div>
-          <div className=" hover:underline">
-            <Link href={`/admission`}>การสอบเข้า ม.4</Link>
           </div>
           {/* <div className="cursor-pointer hover:underline">
             <Link href={`/moreInfo`}>ข้อมูลเพิ่มเติม</Link>
@@ -94,6 +87,12 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
               <Link href={`/clubs/${[user?.club]}`}>ข้อมูลหน่วยงาน</Link>
             </div>
           )} */}
+          <div className=" hover:underline">
+            <Link href={`/admission`}>การสอบเข้าม.4</Link>
+          </div>
+          <div className=" hover:underline">
+            <Link href={`/schedule`}>ตารางถ่ายทอดสด</Link>
+          </div>
           {!user && (
             <div className="cursor-pointer hover:underline">
               <Link href={`/auth`}>เข้าสู่ระบบ</Link>
@@ -178,6 +177,11 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
               <div className="flex flex-row items-center py-2 pl-4 pr-8 space-x-4 text-[14px]">
                 <Link href="/admission" passHref>
                   <span>การสอบเข้า ม.4</span>
+                </Link>
+              </div>
+              <div className="flex flex-row items-center py-2 pl-4 pr-8 space-x-4 text-[14px]">
+                <Link href="/schedule" passHref>
+                  <span>ตารางถ่ายทอดสด</span>
                 </Link>
               </div>
               {/* {user?.roles?.hasOwnProperty("tucmc") && (

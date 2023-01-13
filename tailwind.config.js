@@ -44,6 +44,7 @@ module.exports = {
         300: "#4565DB",
       },
       "blue-text": "#37498B",
+      "blue-gifted": "#384A8C",
       white: "#ffffff",
       gray: {
         300: "#D9D9D9",
