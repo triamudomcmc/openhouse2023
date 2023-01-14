@@ -1,5 +1,6 @@
 import { TriamOPHMap } from "@components/map"
 import classNames from "classnames"
+import Link from "next/link"
 import { useState } from "react"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch"
 
@@ -86,6 +87,15 @@ export default function Map() {
               <TransformComponent>
                 <TriamOPHMap className="cursor-grab w-full h-[64rem]" selected={selected} />
               </TransformComponent>
+
+              <Link 
+                href={`https://drive.google.com/file/d/1TDp8aJb0lNF1TCjqfi6biP0w2MIhCPSl/view?usp=sharing`}
+                passHref
+              >
+                <a target="_blank" rel="noopener noreferrer" className="bg-bright-orange text-white rounded-full text-[24px] py-2 w-[180px] text-center">
+                  ดาวน์โหลด PDF
+                </a>
+              </Link>
             </div>
           )}
         </TransformWrapper>
