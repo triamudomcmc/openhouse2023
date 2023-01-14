@@ -93,6 +93,9 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
           <div className=" hover:underline">
             <Link href={`/schedule`}>ตารางถ่ายทอดสด</Link>
           </div>
+          <div className=" hover:underline">
+            <Link href={`/map`}>แผนผังงาน</Link>
+          </div>
           {!user && (
             <div className="cursor-pointer hover:underline">
               <Link href={`/auth`}>เข้าสู่ระบบ</Link>
@@ -182,6 +185,11 @@ export const Navbar: FC<{ classname?: string }> = ({ classname }) => {
               <div className="flex flex-row items-center py-2 pl-4 pr-8 space-x-4 text-[14px]">
                 <Link href="/schedule" passHref>
                   <span>ตารางถ่ายทอดสด</span>
+                </Link>
+              </div>
+              <div className="flex flex-row items-center py-2 pl-4 pr-8 space-x-4 text-[14px]">
+                <Link href="/map" passHref>
+                  <span>แผนผังงาน</span>
                 </Link>
               </div>
               {/* {user?.roles?.hasOwnProperty("tucmc") && (
