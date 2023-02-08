@@ -16,6 +16,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowCircleLeftIcon } from "@heroicons/react/solid"
+import { Chart } from "@vectors/Chart"
 
 interface IMilestoneData {
   date: string
@@ -46,11 +47,11 @@ export default function Admission({ query }: any) {
   return (
     <main className="min-h-screen w-full flex flex-col pt-[6.5rem] pb-[2rem] justify-center items-center text-white bg-normal-gradient">
       <div className="px-4 mb-8 text-center">
-        <h1 className="text-3xl sm:text-4xl">
+        {/* <h1 className="text-3xl sm:text-4xl">
           พบกับกำหนดการสอบเข้าเร็ว ๆ นี้...
-        </h1>
-        {/* <p className="mt-4 text-xl sm:text-2xl">โรงเรียนเตรียมอุดมศึกษา</p>
-        <p className="mt-4 text-lg font-light">ปีการศึกษา 2565</p>
+        </h1> */}
+        <p className="mt-4 text-xl sm:text-2xl">โรงเรียนเตรียมอุดมศึกษา</p>
+        <p className="mt-4 text-lg font-light">ปีการศึกษา 2566</p>
       </div>
       <div className="flex flex-col items-center w-full px-4 space-y-12 lg:px-12 ">
         <div className="bg-[#e9ceaf] max-w-[600px] rounded-2xl bg-opacity-40 px-8 py-8 flex flex-col items-center">
@@ -66,41 +67,41 @@ export default function Admission({ query }: any) {
               การเดินทางมาโรงเรียนเตรียมฯ <LocationMarkerIcon className="inline w-5 h-5" />
             </a>
           </Link>
-        </div> */}
-        {/* <div className="flex flex-col w-full">
+        </div>
+        <div className="flex flex-col w-full">
           <h2 className="mb-6 text-2xl font-semibold text-center">กำหนดการสอบเข้า</h2>
           <p className="text-center">รอติดตามข้อมูล</p>
           <div className={`flex flex-col items-center justify-center w-full space-y-4 ${width > LG ? "flex-row space-x-4 space-y-0" : ""}`}>
-            <Milestone data={{ date: "19-23", month: "ก.พ. 65", event: "เปิดรับสมัคร" }} />
+            <Milestone data={{ date: "14-18", month: "ก.พ. 66", event: "เปิดรับสมัคร" }} />
             {width > LG ? (
               <ArrowRightIcon className="w-5 h-5 text-white" />
             ) : (
               <ArrowDownIcon className="w-5 h-5 text-white" />
             )}
-            <Milestone highlight data={{ date: "5", month: "มี.ค. 65", event: "วันสอบ" }} />
+            <Milestone highlight data={{ date: "4", month: "มี.ค. 66", event: "วันสอบ" }} />
             {width > LG ? (
               <ArrowRightIcon className="w-5 h-5 text-white" />
             ) : (
               <ArrowDownIcon className="w-5 h-5 text-white" />
             )}
-            <Milestone data={{ date: "12", month: "มี.ค. 65", event: "วันประกาศผล" }} />
+            <Milestone data={{ date: "10", month: "มี.ค. 66", event: "วันประกาศผล" }} />
             {width > LG ? (
               <ArrowRightIcon className="w-5 h-5 text-white" />
             ) : (
               <ArrowDownIcon className="w-5 h-5 text-white" />
             )}
-            <Milestone data={{ date: "15", month: "มี.ค. 65", event: "รายงานตัว" }} />
+            <Milestone data={{ date: "13", month: "มี.ค. 66", event: "รายงานตัว" }} />
             {width > LG ? (
               <ArrowRightIcon className="w-5 h-5 text-white" />
             ) : (
               <ArrowDownIcon className="w-5 h-5 text-white" />
             )}
-            <Milestone data={{ date: "21", month: "มี.ค. 65", event: "วันมอบตัว" }} />
+            <Milestone data={{ date: "22", month: "มี.ค. 66", event: "วันมอบตัว" }} />
           </div>
-        </div> */}
-        {/* <div className="flex flex-col items-center justify-center w-full px-4 mt-4">
+        </div>
+        <div className="flex flex-col items-center justify-center w-full px-4 mt-4">
           <h2 className="mb-4 text-xl font-semibold text-center">
-            รายละเอียดในการรับสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4 ปีการศึกษา 2565
+            รายละเอียดในการรับสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4 ปีการศึกษา 2566
           </h2>
           <p className="mb-6 text-sm font-light text-center sm:text-left">
             ท่านรองฯ ทรงเกียรติ เทพประเสนกล่าวถึงข้อมูลเกี่ยวกับการสอบเข้า, แนวทางการจัดการเรียนสอน, และอื่น ๆ อีกมากมาย
@@ -148,8 +149,8 @@ export default function Admission({ query }: any) {
               allowFullScreen
             ></iframe>
           </div>
-        </div> */}
-        {/* <div className="flex flex-col itesm-center">
+        </div>
+        <div className="flex flex-col itesm-center">
           <h2 className="mt-6 mb-4 text-2xl font-semibold text-center">การเดินทางมาสถานที่สอบ</h2>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.768954036868!2d100.5455547146062!3d13.912753890243433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2830b0b06eef3%3A0x5ade5eb90113ca18!2sIMPACT!5e0!3m2!1sen!2sth!4v1642815661950!5m2!1sen!2sth"
@@ -160,19 +161,19 @@ export default function Admission({ query }: any) {
             allowFullScreen
             loading="lazy"
           ></iframe>
-        </div> */}
-        {/* <div className="flex flex-col items-center">
+        </div>
+        <div className="flex flex-col items-center">
           <h2 className="mt-6 mb-4 text-2xl font-semibold text-center">ข้อมูลสายการเรียนที่เปิดรับ</h2>
           <article className="flex flex-col w-full max-w-[1260px] xl:space-x-8 xl:flex-row justify-center items-center">
             <div className="w-[300px] xl:w-[1024px] sm:min-w-[400px]">
-              {/* <Chart className="w-full lg:w-[270px]" /> 
-              <Image
+              <Chart className="w-full lg:w-[270px]" /> 
+              {/* <Image
                 src="/assets/admission/chart.png"
                 alt="programmes chart"
                 width={449}
                 height={658}
                 className="w-full"
-              />
+              /> */}
             </div>
             <div className="flex flex-col mt-6 space-y-4">
               <div>
@@ -274,7 +275,7 @@ export default function Admission({ query }: any) {
               </div>
             </div>
           </article>
-        </div> */}
+        </div>
       </div>
     </main>
   )
